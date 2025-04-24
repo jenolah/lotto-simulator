@@ -15,6 +15,7 @@ const matches = ref({
 })
 const inputString = ref('')
 const isRandom = ref(false)
+const hasWon = ref(false)
 
 const resetInterval = () => {
   if (idInterval.value) clearInterval(idInterval.value)
@@ -69,8 +70,8 @@ const processLotteryRound = () => {
   numberOfTickets.value += 1
 
   if (matches.value[5] > 0) {
+    hasWon.value = true
     stopInterval()
-    alert('You won the lottery!')
   }
 }
 
@@ -93,7 +94,7 @@ onUnmounted(() => {
 
     <button @click="stopInterval">STOP</button>
 
-    <h2 class="title">Result</h2>
+    <h2 class="title">Result{{ hasWon ? ' - You won!' : '' }}</h2>
     <div class="grid">
       <p>Your numbers:</p>
 
@@ -103,14 +104,13 @@ onUnmounted(() => {
         </span>
       </div>
       <p>Winning numbers:</p>
-
       <div class="number-list">
         <span v-for="number in Array.from(winningNumbers)" class="number">
           {{ number }}
         </span>
       </div>
     </div>
-    <Metrics :numberOfTickets="numberOfTickets" />
+    <Metrics :numberOfTickets="numberOfTickets" :hasWon="hasWon" />
     <div class="matches">
       <div class="match-card" v-for="(match, index) in matches">
         <p class="text-small">{{ index }} matches</p>
@@ -143,7 +143,7 @@ onUnmounted(() => {
   margin: auto;
   max-width: 700px;
   background-color: white;
-  padding: 1rem;
+  padding: 2rem;
   border-radius: 2rem;
   box-shadow: 2px 2px 10px base.$shadow-color;
 }
@@ -170,7 +170,6 @@ onUnmounted(() => {
   justify-content: center;
   align-items: center;
   margin-top: 1rem;
-  padding: 1rem;
   grid-template-columns: repeat(4, 1fr);
 
   @media screen and (max-width: 600px) {
