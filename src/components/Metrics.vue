@@ -1,8 +1,5 @@
 <script setup>
-import { ref } from 'vue'
 const { numberOfTickets, hasWon } = defineProps(['numberOfTickets', 'hasWon'])
-
-console.log(hasWon)
 
 const formatNumber = (number) => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
