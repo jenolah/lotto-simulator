@@ -89,7 +89,7 @@ onUnmounted(() => {
       v-model="inputString"
       placeholder="e.g. 4, 8, 15, 16, 23"
     />
-    <div>Play with random numbers:<input type="checkbox" v-model="isRandom" /></div>
+    <div class="grid">Play with random numbers:<input type="checkbox" v-model="isRandom" /></div>
     <button :disabled="idInterval" @click="startSimulation">START</button>
 
     <button @click="stopInterval">STOP</button>
